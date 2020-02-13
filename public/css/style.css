@@ -2,3 +2,68 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* style for the home page */
+#home-body{
+    background-color:#A5C05D;
+    color:white;
+    font-family: "Gotham", "Gotham Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+#home-container{
+    display:flex;
+    justify-content: space-between;
+    width:95%;
+    padding:50px 0;
+    margin:0 auto;
+
+}
+#ositrade-introduction{
+    width:45%;
+}
+#ositrade-desktop{
+    width: 50%;
+    height: auto;
+}
+#ositrade-icons{
+    width:100%;
+    height: auto;
+}
+#welcome{
+    font-size:44px;
+    font-weight: bold;
+}
+.emphasis{
+    font-size:28px;
+    font-weight: bold;
+}
+.little-emphasis{
+    font-size:20px;
+    font-weight: bold
+}
+.mild-emphasis{
+    font-size:22px;
+}
+#ositrade-offer li{
+    font-size:14px;
+}
+#button-holders{
+    width:90%;
+    display: flex;
+    justify-content: center;
+    margin:40px 0;
+}
+.home-button{
+    padding:10px;
+    text-decoration: none;
+    border:1px solid white;
+    border-radius:18px;
+    margin:0 10px;
+    color:white;
+}
+#home-footer{
+    width:95%;
+    color:#6c757d;
+    display: flex;
+    justify-content: center;
+    
+}

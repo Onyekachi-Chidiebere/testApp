@@ -21,6 +21,7 @@ router.get('/login',(req,res)=>{
     res.render('login')
 });
 
+
 router.post('/register',async(req,res)=>{
   try{
     let name = req.body.createUsername;

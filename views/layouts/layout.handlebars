@@ -4,61 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-light fixed-top">
-    <div id="navbarSupportedContent" class="collapse navbar-collapse ml-3 d-flex flex-row justify-content-center align-items-center">
-      <ul class="nav mr-auto main-menu">
-        <!-- Nav actions in windows.js file -->
-        <li class="nav-item">
-          <div id="nav-dashboard" class="nav-link langChange d-flex align-items-center" data-lang="home"><a href='/PROD/WELCOME/Bienvenue%20sur%20le%20site%20web%20OSITRADE.html'>Accueil</a></div>
-        </li>
-        <li class="nav-item">
-          <div id="nav-portfolio" class="nav-link langChange d-flex align-items-center" data-lang="portfolio"><a href='PROD/PORTFOLIO/Ositrade.html'>Portefeuille</a></div>
-        </li>
-        <li class="nav-item">
-          <div id="nav-trading" class="nav-link langChange d-flex align-items-center active" data-lang="trading">Marché</div>
-        </li>
-        <li class="nav-item">
-          <div id="nav-commission" class="nav-link langChange d-flex align-items-center" data-lang="commissions"><a href='PROD/COMMISSION/Ositrade.html'>Commissions</a></div>
-        </li>
-        <li class="nav-item">
-          <div id="nav-registration" class="nav-link langChange d-flex align-items-center" data-lang="hello">Registrations</div>
-        </li>
-      </ul>
-
-      <div class="mx-3 ml-auto">
-        <i id="userName" class="dropbtn">Philippe Lehrmann</i>
-        <div class="dropdown">
-          <i class="fa fa-user mr-3"></i>
-          <div class="dropdown-content">
-            <div id="userProfile"><a href='PROD/PROFILE/Ositrade.html'>Profile</a></div>
-            <a href="/logout">Logout</a>
-          </div>
-        </div>
-        <i class="fa fa-bell">
-          <span class="badge badge-pill badge-info" id="chatmsgnotification">0</span>
-        </i>
-        <img id="langChange" class="flag" data-savepage-src="./images/Flags/France.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAvCAYAAABe1bwWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NDc5ODQ3NjA1RUYxMUUzOTkwODgwRUU1QTkwOENFMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NDc5ODQ3NzA1RUYxMUUzOTkwODgwRUU1QTkwOENFMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY0Nzk4NDc0MDVFRjExRTM5OTA4ODBFRTVBOTA4Q0UwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY0Nzk4NDc1MDVFRjExRTM5OTA4ODBFRTVBOTA4Q0UwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+t/TpJwAAARdJREFUeNrs2zFLQlEchvFzDw62S/ZRdGnUprIlHaxRg75Ql4aWBk0ImirHWvwqF2w2cLD3j8eLcmy6NmTPCw8OV4Tz43JdtNTsDN3aTlRf1VRVJa7Anu7P3W/t6+pmFx+zUJmaqFS9ri748FpWA/WiWuqoKMofWRLO2gpnN4MDu1AKb7hTbcfMYK4u7Y5pqC4m+cyi4cMzhW3u2mCOcYhWN5gKDtEOPQZb54H5SQYCYIABBhhggAEGGGCAAYYBAwwwwAADDDDAAAMMMAwYYIABBhhggAEGmD2HmcIQ7dNgPnCI9m4wtzhESw1mrB6wyGcWb6uHb089YuJGwSL/Vpq55e/oT9WzW/4j478sC2c+UxfBwn0LMACbVCLZeN4JsgAAAABJRU5ErkJggg==" alt="FR">
-      </div>
-
-
-    </div>
-  </nav>
-    {{!-- <nav id="topMenu">
+    <nav id="topMenu">
         <p>Menu</p>
         <div>
-            <a href="/">Dashboard</a>
+            <a href="/">Home</a>
             <a href="/users/login">Login</a>
             <a href="/users/register">Register</a>
             <a href="/users/logout">Logout</a>
         </div>
-    </nav> --}}
+    </nav>
     {{{body}}}
 </body>
 </html>

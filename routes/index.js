@@ -8,10 +8,12 @@ const ensureAuthenticated =(req,res,next)=>{
         res.redirect('/users/login')
     }
 }
-router.get('/',ensureAuthenticated,(req,res)=>{
-    res.render('index')
+router.get('/dashboard',ensureAuthenticated,(req,res)=>{
+    res.render('dashboard')
 });
 
-
+router.get('/',(req,res)=>{
+    res.render('home')
+})
 
 module.exports = router;
