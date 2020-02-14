@@ -5,19 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/f202766429.js" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
     <nav id="topMenu">
-        <p>Menu</p>
         <div>
-            <a href="/">Home</a>
-            <a href="/users/login">Login</a>
-            <a href="/users/register">Register</a>
-            <a href="/users/logout">Logout</a>
+            <a href="/">Accueil</a>
+            <a href="#">Portefeuille</a>
+            <a href="#">Marché</a>
+            <a href="#">Commissions</a>
+            <a href="/users/register">Registrations</a>
         </div>
+        <img id="ositrade-logo" src="/images/ositrade-logo.png" alt="" srcset="">
+        <div id="one">
+            <p>
+               Philippe Lehrmann 
+            </p>
+            <i id="user" class="fa fa-user mr-3">p</i>
+            <i class="fa fa-bell">
+                <span class="badge badge-pill badge-info" id="chatmsgnotification">0</span>
+            </i>
+            <img src="/images/francelogo.png" alt="" srcset="">
+        </div>
+        <nav id="nav-profile">
+            <a href="/users/login">Profile</a>
+            <a href="/users/logout">Logout</a>
+        </nav>
     </nav>
     {{{body}}}
+    <script src="/js/index.js"></script>
 </body>
 </html>
