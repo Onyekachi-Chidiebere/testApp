@@ -6,16 +6,25 @@ const localStrategy = require('passport-local').Strategy
 const userData = require('./schema');
 const bcrypt = require('bcrypt')
 
-const url = 'mongodb://127.0.0.1:27017/testio'
-mongoose.connect(url, {
-    useNewUrlParser: true
-}, (err, db) => {
-    if (err) {
+mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/testio?retryWrites=true&w=majority',{useNewUrlParser:true}, (err,db)=>{
+    if(err){
         console.log(err)
-    } else {
+    }else{
         console.log('connected')
     }
 })
+
+
+// const url = 'mongodb://127.0.0.1:27017/testio'
+// mongoose.connect(url, {
+//     useNewUrlParser: true
+// }, (err, db) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log('connected')
+//     }
+// })
 router.get('/register', (req, res) => {
     res.render('register')
 });

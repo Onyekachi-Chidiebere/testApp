@@ -57,7 +57,7 @@ const ensureAuthenticated =(req,res,next)=>{
         res.redirect('/users/login')
     }
 }
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard', ensureAuthenticated,(req,res)=>{
     let user = req.user;
 
     res.render('dashboard' ,{user})
