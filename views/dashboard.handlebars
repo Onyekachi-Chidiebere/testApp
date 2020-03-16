@@ -1,0 +1,36 @@
+<div id="home-body">
+    <div id="home-container">
+        <div id='ositrade-introduction'>
+            <p >
+                Here, you can enter a site url and get all <span class="emphasis">emails</span>  and  <span class="emphasis">phone numbers</span> displayed in the site.
+            </p>
+            <p>Below is a guide on how to test this</p>
+            <ul id="ositrade-offers">
+                <li> Enter a site url like "https://www.google.co.in/search?q=yoga+gmail+91"</li>
+                <li> You can download the result, send to your email or send to a friend's email</li>
+            </ul>
+            
+            <form action="/get-contact" method="post">
+            <p class="scrape">
+                <input id='scrapeIn' name="siteUrl" type="text" placeholder="enter site url ">
+                <input id="scrapeBtn" type="submit" value="Scrape">
+            </p>
+        </form>
+           <p>{{error}}</p>
+            <ol>
+                {{#each emails}} 
+                    <li>{{this}}</li>            
+                {{/each}} 
+                {{#each num}} 
+                    <li>{{this}}</li>            
+                {{/each}} 
+            </ol>
+        </div>
+        
+    </div>
+    <footer id="home-footer">
+        <p>
+            test Io
+        </p>
+    </footer>
+</div>

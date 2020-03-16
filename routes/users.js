@@ -1,4 +1,4 @@
-const express= require('express');
+const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -6,79 +6,105 @@ const localStrategy = require('passport-local').Strategy
 const userData = require('./schema');
 const bcrypt = require('bcrypt')
 
-const url= 'mongodb://127.0.0.1:27017/ixxo'
-mongoose.connect(url,{useNewUrlParser:true},(err,db)=>{
-    if(err){
+const url = 'mongodb://127.0.0.1:27017/testio'
+mongoose.connect(url, {
+    useNewUrlParser: true
+}, (err, db) => {
+    if (err) {
         console.log(err)
-    }else{
+    } else {
         console.log('connected')
     }
 })
-router.get('/register',(req,res)=>{
+router.get('/register', (req, res) => {
     res.render('register')
 });
-router.get('/login',(req,res)=>{
+router.get('/login', (req, res) => {
     res.render('login')
 });
 
 
-router.post('/register',async(req,res)=>{
-  try{
-    let name = req.body.createUsername;
-    let password =await bcrypt.hash(req.body.createPassword,10);
 
-    let alreadyRegistered = await userData.findOne({username:name})
-    if(alreadyRegistered){
-        console.log('Already Registered')
-        return res.render('register')
-    }else{
-    userData.create({
-        username:name,
-        password:password
-    }).then(()=>{
-        console.log('saved')
-    })
-    res.redirect('login')
+router.post('/register', async (req, res) => {
+    try {
+        let firstName = req.body.firstName;
+        let lastName = req.body.lastName;
+        let phone = req.body.phone;
+        let email = req.body.email;
+        let password = await bcrypt.hash(req.body.createPassword, 10);
+
+        let alreadyRegistered = await userData.findOne({
+            email
+        })
+        if (alreadyRegistered) {
+            console.log('Already Registered')
+            let error = 'Already Registered'
+            return res.redirect('login',{error})
+        } else {
+            userData.create({
+                firstName,
+                lastName,
+                email,
+                phone,
+                password
+            }).then(() => {
+                console.log('saved')
+            })
+            res.redirect('login')
+        }
+
+    } catch {
+        (error) => {
+            console.log(error)
+        }
     }
-    
- }catch{(error)=>{
-     console.log(error)
- }}  
- 
+
 });
 
-passport.use(new localStrategy((username,password,done)=>{
+
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true
+}), function (req, res) {
     
-    userData.findOne({username},async (err,user)=>{
-        if(err){console.log(error)}
-        if(!user){
-            return done(null, false,()=>{console.log('Wrong username')})
+})
+passport.use(new localStrategy(async function (email, password, done) {
+    console.log('route hit')
+    userData.findOne({
+        email
+    }, async function (err, user) {
+        if (err) {
+            console.log(error)
         }
-        if(!(await bcrypt.compare(password,user.password))){
-            return done(null, false,()=>{
-                console.log('Incorrect Password')
+        if (!user) {
+            return done(null, false, {
+                msg: "wrong email"
             })
         }
-        return done(null,user)
+        if (!(await bcrypt.compare(password, user.password))) {
+            return done(null, false, {
+                msg: 'wrong password'
+            })
+        }
+        return done(null, user)
     })
 
 }))
 
 
-passport.serializeUser((user,done)=>{
-    done(null,user.id)
+passport.serializeUser(function (user, done) {
+    done(null, user.id)
 });
-passport.deserializeUser((id,done)=>{
-    userData.findById(id,(err,user)=>{
-        done(err,user)
+passport.deserializeUser(function (id, done) {
+    userData.findById(id, function (err, user) {
+        done(err, user)
     })
 })
 
-router.post('/login',passport.authenticate('local',{successRedirect:'/',failureRedirect:'/users/login',failureFlash:true}),async(req,res)=>{
-res.redirect('/')
-})
 
-router.get('/logout',(req,res)=>{
+
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/users/login')
 })

@@ -13,22 +13,20 @@
 <body>
     <nav id="topMenu">
         <div>
-            <a href="/">Accueil</a>
-            <a href="#">Portefeuille</a>
-            <a href="#">Marché</a>
-            <a href="#">Commissions</a>
-            <a href="/users/register">Registrations</a>
+            <a href="/">Home</a>
+            {{#if user}}
+            <a href="/dashboard">Dashboard</a>
+            {{/if}}
         </div>
-        <img id="ositrade-logo" src="/images/ositrade-logo.png" alt="" srcset="">
+        
+        <img id="ositrade-logo" src="/images/testio.png" alt="" srcset="">
         <div id="one">
             <p>
-               Philippe Lehrmann 
+             Welcome,  {{user.firstName}} 
             </p>
-            <i id="user" class="fa fa-user mr-3">p</i>
-            <i class="fa fa-bell">
-                <span class="badge badge-pill badge-info" id="chatmsgnotification">0</span>
-            </i>
-            <img src="/images/francelogo.png" alt="" srcset="">
+            {{#if user}}
+            <i id="user" class="fa fa-user mr-3"></i>
+            {{/if}}
         </div>
         <nav id="nav-profile">
             <a href="/users/login">Profile</a>

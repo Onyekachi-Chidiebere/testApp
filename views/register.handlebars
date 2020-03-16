@@ -1,7 +1,30 @@
-<form method="post" action="/users/register">
+<form id="sign" method="POST" action="/users/register">
+<table>
     <tr>
-        <td><input name='createUsername'type="text" placeholder="Create Username" required></td>
-        <td><input name='createPassword'type="password" placeholder="Create Password" required></td>
+        <td>
+            <input name="firstName" type="text" placeholder="First Name" required>
+        </td>
+        <td>
+            <input name="lastName" type="text" placeholder="Last Name" required>
+        </td>
     </tr>
-    <input name='register' type="submit" value="Register">
+    <tr>
+        <td>
+            <input name='createPassword'type="password" placeholder="Create Password" required>
+        </td>
+        <td>
+            <input name='confirmPassword'type="password" placeholder="Confirm Password" required>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="email" name="email" placeholder="email" required>
+        </td>
+        <td>
+            <input type="number"name="phone"  placeholder="Phone" required>
+        </td>
+    </tr>
+    
+    </table>
+    <input class="signBtn" name='register' type="submit" value="Sign Up">
 </form>
