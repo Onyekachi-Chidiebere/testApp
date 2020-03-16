@@ -1,4 +1,215 @@
 #topMenu{
+    margin:0;
+    background-color: rgba(255, 255, 255);
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    color:black;
 }
+#topMenu div{
+    display: flex;
+    justify-content: space-evenly;
+    width:30%;
+    align-items: center;
+}
+#topMenu div a{
+    margin:0 10px;
+    color:grey;
+    text-decoration:none;
+    font-size:14px;
+}
+#topMenu div a:active{
+    color:#87AB27;
+    border-bottom:solid 5px #87AB27;
+}
+#topMenu div a:hover{
+    color:#87AB27;
+    border-bottom:solid 5px #87AB27;
+}
+#ositrade-logo{
+    width:auto;
+    height: 50px;
+}
+#nav-profile{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    width:8%;
+    height:100px;
+    top:50px;
+    right:13%;
+    box-sizing: border-box;
+    box-shadow: #6c757d 0 5px 10px;
+    background-color: white;
+}
+#nav-profile a{
+    display:flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    color:grey;
+    text-decoration:none;
+}
+#nav-profile a:hover{
+    background:rgb(223, 219, 219);
+}
+/* style for the home page */
+body{
+    padding:0;
+    background-image:url('/images/home.jpg');
+    color:white;
+    font-family: "Gotham", "Gotham Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+#home-container{
+    display:flex;
+    justify-content: space-between;
+    width:95%;
+    padding:50px 0;
+    margin:0 auto;
+
+}
+#ositrade-introduction{
+    width:45%;
+}
+#ositrade-desktop{
+    width: 50%;
+    height: auto;
+}
+#ositrade-icons{
+    width:100%;
+    height: auto;
+}
+#welcome{
+    font-size:44px;
+    font-weight: bold;
+}
+.emphasis{
+    font-size:28px;
+    font-weight: bold;
+}
+.little-emphasis{
+    font-size:20px;
+    font-weight: bold
+}
+.mild-emphasis{
+    font-size:22px;
+}
+#ositrade-offer li{
+    font-size:14px;
+}
+#button-holders{
+    width:90%;
+    display: flex;
+    justify-content: center;
+    margin:40px 0;
+}
+.home-button{
+    padding:10px;
+    text-decoration: none;
+    border:1px solid white;
+    border-radius:18px;
+    margin:0 10px;
+    color:white;
+}
+#home-footer{
+    width:95%;
+    color:#6c757d;
+    display: flex;
+    justify-content: center;
+    
+}
+/* sign up & sign in */
+#sign{
+    margin-top:100px;
+    margin-left:50px;
+    width:60%;
+}
+#sign table{
+    width:100%;
+    padding:0;
+    margin:0;
+}
+#sign table tr{
+    width:100%;
+    padding:0;
+    margin:0;
+}
+#sign table tr td{
+    width:50%;
+    padding:0;
+    margin:0;
+}
+#sign table tr td input{
+    width:80%;
+    height:30px;
+    background-color:transparent;
+    font-size:20px;
+    border:none;
+    border-bottom:1px solid white;
+    margin-bottom:30px;
+    font-weight: 600px;
+    color:white
+}
+.signBtn{
+    float:right;
+    margin-right:10%;
+    width:20%;
+    height:35px;
+    border-radius: 4px;
+    background-color: rgba(22, 168, 236, 0);
+    color:white;
+    font-size:20px;
+    border:1px solid white;
+}
+
+.scrape{
+    display:flex;
+    align-items: center;
+    width:80%;
+    background:transparent;
+    height: 30px;
+    border:1px solid white;
+    border-radius: 25px;
+}
+#scrapeIn{
+    width:70%;
+    background:transparent;
+    height: 27px;
+    border:none;
+    padding:0 20px;
+    color:white;
+    font-size: 20px;
+    overflow: scroll;
+}
+#scrapeBtn{
+    width:16%;
+    background:transparent;
+    border:none;
+    font-size: 20px;
+    border-left:1px solid white;
+    color:white;
+    height: 27px;
+    cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+        #ositrade-introduction{
+            width:100%;
+        }
+        #ositrade-desktop{
+            display: none;
+        }
+        #welcome{
+            font-size:28px;
+        }
+        .emphasis{
+            font-size:20px;
+            font-weight: bold;
+        }
+        .little-emphasis{
+            font-size:16px;
+            font-weight: bold
+        }
+        .mild-emphasis{
+            font-size:18px;
+        }
+    }

@@ -9,13 +9,15 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path')
 const Port = process.env.PORT;
+const Handlebars = require('handlebars')
 const app = express();
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', handlebars({defaultLayout:'layout'}));
+app.engine('handlebars', handlebars({defaultLayout:'layout',handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars')
 app.use( bodyParser.json() );     
 app.use(bodyParser.urlencoded({    
@@ -42,7 +44,7 @@ app.use(passport.session())
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.error = req.flash('error');
-    res.locals.user = req.user||null;
+    res.locals.user = req.session.user||null;
     next();
  })
 

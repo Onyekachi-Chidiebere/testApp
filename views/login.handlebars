@@ -1,7 +1,16 @@
-<form method="post" action="/users/login">
-    <tr>
-        <td><input name='username'type="text" placeholder="Username" required></td>
-        <td><input name='password'type="password" placeholder="Password" required></td>
-    </tr>
-    <input name="login" type="submit" value="Login">
+    <div>{{error}}</div>
+<form id='sign' method="post" action="/users/login">
+
+    <table>
+        <tr>
+            <td><input name='username'type="email" placeholder="email" required></td>
+            <td>
+                <input name='password'type="password" placeholder="Password" required>
+            </td>
+        </tr>
+    </table>
+    <p>
+        Don't have an account yet? <a href="/users/register"><i>Sign Up here</i></a>
+    </p>
+    <input class="signBtn" name="login" type="submit" value="Sign in">
 </form>
