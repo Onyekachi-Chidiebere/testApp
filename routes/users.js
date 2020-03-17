@@ -51,15 +51,7 @@ router.post('/register', async (req, res) => {
             let error = 'Already Registered'
             return res.redirect('login',{error})
         } else {
-            userData.create({
-                firstName,
-                lastName,
-                email,
-                phone,
-                password
-            }).then(() => {
-                console.log('saved')
-            })
+
 
             const transporter = nodemailer.createTransport({
                 service:'Gmail',
@@ -73,10 +65,25 @@ router.post('/register', async (req, res) => {
              const mailOption ={
                  from:'chidistestapp@gmail.com',
                  to:email,
-                 subject:'Thanks For Signing Up',
-                content:'Please feel free to test and give us feed back thanks'
+                 subject:`Thanks ${firstName} For Signing Up`,
+                 text:'Please feel free to test and give us feed back thanks'
                 }
-                 transporter.sendMail(mailOption).catch((error)=>{console.log(error)})
+                 transporter.sendMail(mailOption).then(()=>{
+                    userData.create({
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        password
+                    })
+                 })
+
+               .then(()=>{
+                        console.log('saved',`mail sent to ${email}`)
+                     })
+                
+
+            
             res.redirect('login')
         }
 
