@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -31,5 +30,15 @@
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onyekachi-Chidiebere/testApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Onyekachi-Chidiebere/testApp/issues"
+  },
+  "homepage": "https://github.com/Onyekachi-Chidiebere/testApp#readme",
+  "description": ""
 }
