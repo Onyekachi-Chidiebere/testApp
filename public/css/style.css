@@ -1,16 +1,21 @@
 #topMenu{
+    width:95%;
     margin:0;
     background-color: rgba(255, 255, 255);
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between ;
     align-items: center;
     color:black;
 }
 #topMenu div{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     width:30%;
     align-items: center;
+}
+#one {
+    justify-content: flex-start;
+    display:flex;
 }
 #topMenu div a{
     margin:0 10px;
@@ -19,12 +24,13 @@
     font-size:14px;
 }
 #topMenu div a:active{
-    color:#87AB27;
-    border-bottom:solid 5px #87AB27;
+    color:rgb(151, 151, 255);
+}
+#one p{
+    margin-right:10px;
 }
 #topMenu div a:hover{
-    color:#87AB27;
-    border-bottom:solid 5px #87AB27;
+    color:rgb(151, 151, 255);
 }
 #ositrade-logo{
     width:auto;
@@ -192,6 +198,12 @@ body{
     cursor: pointer;
 }
 @media screen and (max-width: 480px) {
+        #topMenu{
+            width:99%
+        }
+        #greeting{
+            display:none;
+        }
         #ositrade-introduction{
             width:100%;
         }

@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy
 const userData = require('./schema');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const nodemailer =require('nodemailer')
 
 mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/testio?retryWrites=true&w=majority',{useNewUrlParser:true}, (err,db)=>{
     if(err){
@@ -50,15 +51,39 @@ router.post('/register', async (req, res) => {
             let error = 'Already Registered'
             return res.redirect('login',{error})
         } else {
-            userData.create({
-                firstName,
-                lastName,
-                email,
-                phone,
-                password
-            }).then(() => {
-                console.log('saved')
-            })
+
+
+            const transporter = nodemailer.createTransport({
+                service:'Gmail',
+                host:'smtp.gmail.com',  
+                secure:false,
+                auth:{
+                    user:'chidistestapp@gmail.com',
+                    pass:'mrwawbvuhpapdlgi'
+                }
+            });
+             const mailOption ={
+                 from:'chidistestapp@gmail.com',
+                 to:email,
+                 subject:`Thanks ${firstName} For Signing Up`,
+                 text:'Please feel free to test and give us feed back thanks'
+                }
+                 transporter.sendMail(mailOption).then(()=>{
+                    userData.create({
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        password
+                    })
+                 })
+
+               .then(()=>{
+                        console.log('saved',`mail sent to ${email}`)
+                     })
+                
+
+            
             res.redirect('login')
         }
 
