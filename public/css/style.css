@@ -1,5 +1,5 @@
 #topMenu{
-    width:95%;
+    width:100%;
     margin:0;
     background-color: rgba(255, 255, 255);
     display: flex;
@@ -8,15 +8,18 @@
     color:black;
 }
 #topMenu div{
+    margin:0;
+    padding:0;
     display: flex;
     justify-content: flex-start;
     width:30%;
     align-items: center;
 }
 #one {
-    justify-content: flex-start;
     display:flex;
+    justify-content: space-between;
 }
+
 #topMenu div a{
     margin:0 10px;
     color:grey;
@@ -42,8 +45,8 @@
     position:absolute;
     width:8%;
     height:100px;
-    top:50px;
-    right:13%;
+    top:60px;
+    right:20%;
     box-sizing: border-box;
     box-shadow: #6c757d 0 5px 10px;
     background-color: white;
@@ -63,6 +66,7 @@
 body{
     padding:0;
     background-image:url('/images/home.jpg');
+    background-size: 100% ;
     color:white;
     font-family: "Gotham", "Gotham Light", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
@@ -198,8 +202,20 @@ body{
     cursor: pointer;
 }
 @media screen and (max-width: 480px) {
+        body{
+            background-size:auto;
+        }
         #topMenu{
             width:99%
+        }
+        #topMenu div a{
+            margin:0 5px;
+            
+            font-size:14px;
+        }
+        #nav-profile{
+            width:20%;
+            right: 15%;
         }
         #greeting{
             display:none;
@@ -223,5 +239,23 @@ body{
         }
         .mild-emphasis{
             font-size:18px;
+        }
+        .scrape{
+            width:99%;
+            margin:0 auto;
+        }
+        #scrapeBtn{
+            width:25%;
+        }
+        #sign{
+            width:100%;
+            margin:50px auto;
+            
+        }
+        #sign table tr td input{
+            width:90%;
+        }
+        .signBtn{
+            width: 30%;
         }
     }
