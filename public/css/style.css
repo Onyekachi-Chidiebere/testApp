@@ -1,4 +1,5 @@
 #topMenu{
+    width:95%;
     margin:0;
     background-color: rgba(255, 255, 255);
     display: flex;
@@ -12,6 +13,10 @@
     width:30%;
     align-items: center;
 }
+#one {
+    justify-content: flex-start;
+    display:flex;
+}
 #topMenu div a{
     margin:0 10px;
     color:grey;
@@ -20,6 +25,9 @@
 }
 #topMenu div a:active{
     color:rgb(151, 151, 255);
+}
+#one p{
+    margin-right:10px;
 }
 #topMenu div a:hover{
     color:rgb(151, 151, 255);
@@ -190,6 +198,12 @@ body{
     cursor: pointer;
 }
 @media screen and (max-width: 480px) {
+        #topMenu{
+            width:99%
+        }
+        #greeting{
+            display:none;
+        }
         #ositrade-introduction{
             width:100%;
         }
