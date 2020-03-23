@@ -8,6 +8,7 @@
     color:black;
 }
 #topMenu div{
+    color:grey;
     margin:0;
     padding:0;
     display: flex;
@@ -19,12 +20,14 @@
     display:flex;
     justify-content: space-between;
 }
-
+::placeholder {
+    color: white;
+  }
 #topMenu div a{
     margin:0 10px;
     color:grey;
     text-decoration:none;
-    font-size:14px;
+    font-size:18px;
 }
 #topMenu div a:active{
     color:rgb(151, 151, 255);
@@ -149,7 +152,11 @@ body{
     padding:0;
     margin:0;
 }
+#sign table tr td i{
+    margin-right:10px;
+}
 #sign table tr td input{
+    outline: none;
     width:80%;
     height:30px;
     background-color:transparent;
@@ -201,12 +208,23 @@ body{
     height: 27px;
     cursor: pointer;
 }
+#profile-table{
+    margin-top:40px;
+}
+.warning{
+    color:red;
+}
 @media screen and (max-width: 480px) {
         body{
+            margin:0;
+            padding:0;
             background-size:auto;
+            width:100%;
+            background-position-x: 800px;
         }
         #topMenu{
-            width:99%
+            width:100%;
+            margin:0;
         }
         #topMenu div a{
             margin:0 5px;
@@ -250,12 +268,92 @@ body{
         #sign{
             width:100%;
             margin:50px auto;
+            padding:0;
             
         }
-        #sign table tr td input{
+        #sign table{
+            width:100%;
+        }
+        #sign table tr{
+            display:flex;
+            flex-direction: column;
+        }
+        #sign table tr td{
             width:90%;
+            padding: 0 10px;
+            margin:10px auto;
+            border-radius: 25px;
+        }
+        #sign table tr td input{
+            width:80%;
         }
         .signBtn{
             width: 30%;
         }
+        #signUpWarn{
+            margin:0 30px;
+        }
+        #name{
+            width:80%;
+            margin:0 auto;
+        }
+        #name i {
+            margin:0 auto;
+            display:flex;
+            text-align: center;
+            justify-content: center;
+            padding:auto auto;
+            background: blue;
+            width:50%;
+            height: 120px;
+            font-size:100px;
+            border-radius: 50px;
+        }
+        #name p{
+            margin:0 auto;
+            font-size:30px;
+            display:flex;
+            text-align: center;
+            justify-content: center;
+            width:80%;
+
+        }
+        #name p span{
+            margin:10px
+        }
+        #contact-info{
+            border:1px solid blue;
+            box-sizing: border-box;
+            box-shadow:10px 10px 10px rgb(89, 147, 240);
+            display:flex;
+            flex-direction:column;
+            text-align: center;
+            justify-content: center;
+            width:80%;
+            border-radius:20px;
+            margin:20px auto;
+        }
+        .contact{
+            display:flex;
+            flex-direction:row;
+            width:90%;
+            margin:10px auto;
+            justify-content: space-between;
+            text-align: center;
+            align-items: center;
+        }
+        .contact div{
+            display: flex;
+            width:90%;
+            flex-direction: column;
+        }
+        .contact div  p{
+            margin:0;
+
+        }
+        .contact div i{
+            align-self: center;
+            text-align: center;
+        }
+       
     }

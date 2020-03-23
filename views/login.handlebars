@@ -1,15 +1,21 @@
-    <div>{{error}}</div>
 <form id='sign' method="post" action="/users/login">
 
     <table>
         <tr>
-            <td><input name='username'type="email" placeholder="email" required></td>
             <td>
+                <i class="fas fa-envelope-open-text"></i>
+                <input name='username'type="email" placeholder="email" required>
+            </td>
+            <td>
+                <i class="fas fa-lock"></i>
                 <input name='password'type="password" placeholder="Password" required>
             </td>
         </tr>
+        <tr>
+            <td class="warning"><i>{{errors}}</i></td>
+        </tr>
     </table>
-    <p>
+    <p id='signUpWarn'>
         Don't have an account yet? <a href="/users/register"><i>Sign Up here</i></a>
     </p>
     <input class="signBtn" name="login" type="submit" value="Sign in">

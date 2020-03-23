@@ -19,7 +19,9 @@
             {{/if}}
         </div>
         
-        <img id="ositrade-logo" src="/images/testio.png" alt="" srcset="">
+        <a href="/">
+            <img id="ositrade-logo" src="/images/testio.png" alt="" srcset="">
+        </a>
         <div id="one">
             <p>
              <span id="greeting">Welcome,</span>  {{user.firstName}} 
@@ -29,10 +31,19 @@
             {{/if}}
         </div>
         <nav id="nav-profile">
-            <a href="/users/login">Profile</a>
+            <a href="/users/profile">Profile</a>
             <a href="/users/logout">Logout</a>
         </nav>
     </nav>
+    {{#if success_msg}}
+            <div>{{success_msg}}</div>
+    {{/if}}
+    {{#if error_msg}}
+            <div> yes error_msg {{error_msg}}</div>
+    {{/if}}
+    {{#if error}}
+            <div> yes error{{error}}</div>
+    {{/if}}
     {{{body}}}
     <script src="/js/index.js"></script>
 </body>

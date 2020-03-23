@@ -1,30 +1,37 @@
 <form id="sign" method="POST" action="/users/register">
+<div>{{errors}}</div>
 <table>
     <tr>
         <td>
+            <i class="fas fa-user"></i>
             <input name="firstName" type="text" placeholder="First Name" required>
         </td>
         <td>
+            <i class="fas fa-user"></i>
             <input name="lastName" type="text" placeholder="Last Name" required>
         </td>
     </tr>
     <tr>
         <td>
+            <i class="fas fa-lock"></i>
             <input name='createPassword'type="password" placeholder="Create Password" required>
         </td>
         <td>
+            <i class="fas fa-lock"></i>
             <input name='confirmPassword'type="password" placeholder="Confirm Password" required>
         </td>
     </tr>
     <tr>
         <td>
+            <i class="fas fa-envelope-open-text"></i>
             <input type="email" name="email" placeholder="email" required>
         </td>
         <td>
+            <i class="fas fa-phone-alt"></i>
             <input type="number"name="phone"  placeholder="Phone" required>
         </td>
     </tr>
     
     </table>
-    <input class="signBtn" name='register' type="submit" value="Sign Up">
+    <input class="signBtn" id="" name='register' type="submit" value="Sign Up">
 </form>

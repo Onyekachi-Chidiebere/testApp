@@ -15,7 +15,13 @@ mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/t
     }
 })
 
-
+const ensureAuthenticated =(req,res,next)=>{
+    if(req.isAuthenticated()){
+        return next();
+    }else{
+        res.redirect('/users/login')
+    }
+}
 // const url = 'mongodb://127.0.0.1:27017/testio'
 // mongoose.connect(url, {
 //     useNewUrlParser: true
@@ -30,7 +36,18 @@ router.get('/register', (req, res) => {
     res.render('register')
 });
 router.get('/login', (req, res) => {
-    res.render('login')
+    const flashMessages =res.locals.getMessages();
+    if(flashMessages.error){
+        res.render('login',{
+            errors:flashMessages.error
+        })
+    }else{res.render('login')}
+    
+});
+router.get('/profile',ensureAuthenticated, (req, res) => {
+    let user = req.user;
+    let phone = `0${req.user.phone}`;
+    res.render('profile',{user,phone})
 });
 
 
@@ -48,8 +65,8 @@ router.post('/register', async (req, res) => {
         })
         if (alreadyRegistered) {
             console.log('Already Registered')
-            let error = 'Already Registered'
-            return res.redirect('login',{error})
+            let errors = 'email exists already !!!'
+            return res.render('register',{errors})
         } else {
 
 
@@ -83,7 +100,7 @@ router.post('/register', async (req, res) => {
                      })
                 
 
-            
+            req.flash('success_msg','Thanks for signing up you can now login')
             res.redirect('login')
         }
 
@@ -112,14 +129,12 @@ passport.use(new localStrategy(async function (email, password, done) {
             console.log(error)
         }
         if (!user) {
-            return done(null, false, {
-                msg: "wrong email"
-            })
+            console.log('not user')
+            return done(null, false, {message: "email not found"})
         }
         if (!(await bcrypt.compare(password, user.password))) {
-            return done(null, false, {
-                msg: 'wrong password'
-            })
+            console.log('wrong Password')
+            return done(null, false, {message: 'wrong password'})
         }
         return done(null, user)
     })
