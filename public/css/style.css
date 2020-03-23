@@ -303,7 +303,7 @@ body{
             text-align: center;
             justify-content: center;
             padding:auto auto;
-            background: blue;
+            background: rgb(89, 147, 240);
             width:50%;
             height: 120px;
             font-size:100px;
@@ -322,7 +322,7 @@ body{
             margin:10px
         }
         #contact-info{
-            border:1px solid blue;
+            border:1px solid rgb(89, 147, 240);
             box-sizing: border-box;
             box-shadow:10px 10px 10px rgb(89, 147, 240);
             display:flex;
