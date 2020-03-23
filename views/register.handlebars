@@ -14,11 +14,14 @@
     <tr>
         <td>
             <i class="fas fa-lock"></i>
-            <input name='createPassword'type="password" placeholder="Create Password" required>
+            <input id="password" name='createPassword'type="password" placeholder="Create Password" required>
         </td>
         <td>
             <i class="fas fa-lock"></i>
-            <input name='confirmPassword'type="password" placeholder="Confirm Password" required>
+            <input id="confirmPassword" name='confirmPassword'type="password" placeholder="Confirm Password" required>
+            <i id="good" class="far fa-check-circle"></i>
+            <i id="bad" class="far fa-times-circle"></i></br>
+            <i class="err">Passwords do not match!!!</i>
         </td>
     </tr>
     <tr>
@@ -33,5 +36,5 @@
     </tr>
     
     </table>
-    <input class="signBtn" id="" name='register' type="submit" value="Sign Up">
+    <input class="signBtn" id="regBtn" name='register' type="submit" value="Sign Up">
 </form>

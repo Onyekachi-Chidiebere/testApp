@@ -279,6 +279,20 @@ body{
     align-self: center;
     text-align: center;
 }
+#good{
+    display: none;
+    color:rgb(64, 253, 64);
+}
+#bad{
+    display: none;
+    color:red
+}
+.err{
+    color:red;
+    margin:0;
+    display:none;
+}
+
 
 @media screen and (max-width: 480px) {
         body{
