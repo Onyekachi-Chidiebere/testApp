@@ -5,7 +5,9 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy
 const userData = require('./schema');
 const bcrypt = require('bcrypt');
-const nodemailer =require('nodemailer')
+const nodemailer =require('nodemailer');
+const async = require('async')
+const crypto = require('crypto');
 
 mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/testio?retryWrites=true&w=majority',{useNewUrlParser:true}, (err,db)=>{
     if(err){
@@ -91,7 +93,9 @@ router.post('/register', async (req, res) => {
                         lastName,
                         email,
                         phone,
-                        password
+                        password,
+                        resetPasswordToken:undefined,
+                        resetPasswordExpires:undefined,
                     })
                  })
 
@@ -151,6 +155,65 @@ passport.deserializeUser(function (id, done) {
     })
 })
 
+
+router.post('/forgot',(req,res,next)=>{
+    async.waterfall([
+        (done)=>{
+            crypto.randomBytes(20,(err,buf)=>{
+                let token = buf.toString('hex');
+                done(err,token)
+            })
+        },
+        (token,done)=>{
+            userData.findOne({email:req.body.email},(err,user)=>{
+                if(err){throw err};
+                if(!user){
+                    req.flash('error','Account does not exist')
+                    res.redirect('/forgot')
+                };
+                user.resetPassordToken = token;
+                user.resetPasswordExpires = Date.now + 3600000;
+
+                user.save((err)=>{
+                    done(err,token,user)
+                })
+            })
+        },
+        (token,user,done)=>{
+            const smtpTransport = nodemailer.createTransport({
+                service:'Gmail',
+                host:'smtp.gmail.com',  
+                secure:false,
+                auth:{
+                    user:'chidistestapp@gmail.com',
+                    pass:'mrwawbvuhpapdlgi'
+                }
+            })
+            const mailOption = {
+                from:'chidistestapp@gmail.com',
+                to:user.email,
+                subject:`chidistestapp Password Reset`,
+                text:'You (or someone else) have requested to chenge your app password' + '\n\n' +
+                     'if it is you, click on the link below or copy to your browser the link expires in one hour'
+                     + '\n\n' +
+                     'http//'+req.headers.host+'/reset/'+ token 
+                };
+            smtpTransport.sendMail(mailOption,(err)=>{
+                if(err){
+                    throw err
+                }
+                console.log('mail sent');
+                req.flash('success-msg', `An e-mail has been sent to ${user.email} with further instructons`);
+                done(err,'done')
+            })    
+       }
+        
+    ],
+    (err)=>{
+        if (err) return next(err);
+        res.redirect('/forgot');
+    });
+});
 
 
 router.get('/logout', (req, res) => {
