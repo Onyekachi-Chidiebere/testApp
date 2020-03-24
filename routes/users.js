@@ -5,7 +5,9 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy
 const userData = require('./schema');
 const bcrypt = require('bcrypt');
-const nodemailer =require('nodemailer')
+const nodemailer =require('nodemailer');
+const async = require('async');
+
 
 mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/testio?retryWrites=true&w=majority',{useNewUrlParser:true}, (err,db)=>{
     if(err){
@@ -153,8 +155,8 @@ passport.deserializeUser(function (id, done) {
 
 
 router.post('/forgot',(res,req,next)=>{
-    async.waterFall([
-        
+    async.waterfall([
+
     ])
 })
 
