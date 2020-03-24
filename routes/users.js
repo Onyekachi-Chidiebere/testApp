@@ -126,7 +126,7 @@ passport.use(new localStrategy(async function (email, password, done) {
         email
     }, async function (err, user) {
         if (err) {
-            console.log(error)
+            console.log(err)
         }
         if (!user) {
             console.log('not user')
@@ -151,6 +151,12 @@ passport.deserializeUser(function (id, done) {
     })
 })
 
+
+router.post('/forgot',(res,req,next)=>{
+    async.waterFall([
+        
+    ])
+})
 
 
 router.get('/logout', (req, res) => {
