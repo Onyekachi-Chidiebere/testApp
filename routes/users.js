@@ -38,14 +38,29 @@ router.get('/register', (req, res) => {
     res.render('register')
 });
 router.get('/login', (req, res) => {
-    const flashMessages =res.locals.getMessages();
-    if(flashMessages.error){
+    const flashMessages = res.locals.getMessages();
+    if(flashMessages){
+        console.log(flashMessages)
         res.render('login',{
-            errors:flashMessages.error
+            flashMessages
         })
     }else{res.render('login')}
     
 });
+
+
+
+router.get('/forgot', (req, res) => {
+    const flashMessages = res.locals.getMessages();
+    if(flashMessages){
+        console.log(flashMessages)
+        res.render('forgot',{
+            flashMessages
+        })
+    }else{res.render('forgot')}
+    
+});
+
 router.get('/profile',ensureAuthenticated, (req, res) => {
     let user = req.user;
     let phone = `0${req.user.phone}`;
@@ -156,7 +171,7 @@ passport.deserializeUser(function (id, done) {
 })
 
 
-router.post('/forgot',(req,res,next)=>{
+router.post('/forgot',(req, res, next)=>{
     async.waterfall([
         (done)=>{
             crypto.randomBytes(20,(err,buf)=>{
@@ -169,13 +184,13 @@ router.post('/forgot',(req,res,next)=>{
                 if(err){throw err};
                 if(!user){
                     req.flash('error','Account does not exist')
-                    res.redirect('/forgot')
+                    return res.redirect('forgot')
                 };
-                user.resetPassordToken = token;
-                user.resetPasswordExpires = Date.now + 3600000;
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000;
 
                 user.save((err)=>{
-                    done(err,token,user)
+                  return done(err,token,user)
                 })
             })
         },
@@ -196,84 +211,95 @@ router.post('/forgot',(req,res,next)=>{
                 text:'You (or someone else) have requested to chenge your app password' + '\n\n' +
                      'if it is you, click on the link below or copy to your browser the link expires in one hour'
                      + '\n\n' +
-                     'http//'+req.headers.host+'/reset/'+ token 
+                     'http://'+ req.headers.host +'/users/reset/'+ token 
                 };
             smtpTransport.sendMail(mailOption,(err)=>{
                 if(err){
                     throw err
                 }
                 console.log('mail sent');
-                req.flash('success-msg', `An e-mail has been sent to ${user.email} with further instructons`);
-                done(err,'done')
+                req.flash('success_msg', `An e-mail has been sent to ${user.email} with further instructons`);
+                return res.redirect('forgot');
             })    
        }
         
-    ],
-    (err)=>{
-        if (err) return next(err);
-        res.redirect('/forgot');
-    });
+    ]);
 });
 
 
 router.get('/reset/:token',(req,res)=>{
-    userData.findOne({resetPasswordToken:req.param.token,resetPasswordExpires:{$gt:Date.now()}},(err,user)=>{
+    console.log(req.params)
+    console.log('get-/reset/:token',{resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}})
+
+    userData.findOne({resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}},(err,user)=>{
         if(err){
          return   console.log(err)
         }
         if(!user){
+            req.flash('error_msg','passord reset token is invalid or has expired')
             console.log('password reset token is invalid or has expired')
-          return  res.redirect('/forgot')
+          return  res.redirect('/users/forgot')
         }
-        res.render('reset',{token:req.param.token})
+        
+        res.render('reset',{token:req.params.token})
 
     })
 });
 
 router.post('/reset/:token',(req,res)=>{
+    console.log('post-/reset/:token',{resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}})
     async.waterfall([
         (done)=>{
-            userData.findOne({resetPasswordToken:req.param.token,resetPasswordExpires:{$gt:Date.now()}},(err,user)=>{
+            console.log({resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}})
+            userData.findOne({resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}},async (err,user)=>{
+                console.log('in the db')
                 if(err){
-                 return   console.log(err)
+                    console.log('in the error zone')
+                 return console.log(err)
                 }
+                console.log('after the error zone')
                 if(!user){
+                    console.log('in the not user zone')
+                    req.flash('error','password reset token is invalid or has expired')
                     console.log('password reset token is invalid or has expired')
-                  return  res.redirect('/forgot')
+                  return  res.redirect('/users/forgot')
                 }
-                user.setPassword(req.body.password,(err)=>{
+                    console.log('after the not user zone')
+                try {
+                    console.log('in the user zone')
+                    let password = await bcrypt.hash(req.body.createPassword, 10);
+                    user.password = password;
                     user.resetPasswordToken = undefined;
                     user.resetPasswordExpires = undefined;
                     user.save()
-                })
-            })    
-        }, (token,user,done)=>{
-            const smtpTransport = nodemailer.createTransport({
-                service:'Gmail',
-                host:'smtp.gmail.com',  
-                secure:false,
-                auth:{
-                    user:'chidistestapp@gmail.com',
-                    pass:'mrwawbvuhpapdlgi'
+                    console.log('after the user zone');
+
+                    const smtpTransport = nodemailer.createTransport({
+                        service:'Gmail',
+                        host:'smtp.gmail.com',  
+                        secure:false,
+                        auth:{
+                            user:'chidistestapp@gmail.com',
+                            pass:'mrwawbvuhpapdlgi'
+                        }
+                    },console.log('after the transport zone'))
+                    const mailOption = {
+                        from:'chidistestapp@gmail.com',
+                        to:user.email,
+                        subject:`Password Reset`,
+                        text:'Your password has been reset succeffully' 
+                        };
+                    smtpTransport.sendMail(mailOption,()=>{
+                        req.flash('success_msg', `your password has been changed successfully`);
+                        return res.redirect('/users/login')
+                    })
+                    
+                } catch (error) {
+                    console.log(error)
                 }
-            })
-            const mailOption = {
-                from:'chidistestapp@gmail.com',
-                to:user.email,
-                subject:`Password Reset`,
-                text:'Your password has been reset succeffully' 
-                };
-            smtpTransport.sendMail(mailOption,(err)=>{
-                if(err){
-                    throw err
-                }
-                console.log('mail sent');
-                req.flash('success-msg', `your password has been changed`);
-                done(err,'done')
+                
             })    
-       },(err)=>{
-           return res.redirect('/login')
-       }
+        }
     ])
 })
 

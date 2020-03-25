@@ -1,0 +1,19 @@
+<form id="sign" method="POST" action="/users/reset/{{token}}">
+<div>{{errors}}</div>
+<table>
+    <tr>
+        <td>
+            <i class="fas fa-lock"></i>
+            <input id="password" name='createPassword'type="password" placeholder="Create Password" required>
+        </td>
+        <td>
+            <i class="fas fa-lock"></i>
+            <input id="confirmPassword" name='confirmPassword'type="password" placeholder="Confirm Password" required>
+            <i id="good" class="far fa-check-circle"></i>
+            <i id="bad" class="far fa-times-circle"></i></br>
+            <i class="err">Passwords do not match!!!</i>
+        </td>
+    </tr>
+    </table>
+    <input class="signBtn" id="regBtn" name='reset' type="submit" value="Reset Password">
+</form>
