@@ -35,14 +35,10 @@
             <a href="/users/logout">Logout</a>
         </nav>
     </nav>
-    {{#if success_msg}}
-            <div>{{success_msg}}</div>
-    {{/if}}
-    {{#if error_msg}}
-            <div> yes error_msg {{error_msg}}</div>
-    {{/if}}
-    {{#if error}}
-            <div> yes error{{error}}</div>
+    {{#if flashMessages}}
+            <div>{{flashMessages.success_msg}}</div>
+            <div>{{flashMessages.error}}</div>
+            <div>{{flashMessages.error_msg}}</div>
     {{/if}}
     {{{body}}}
     <script src="/js/index.js"></script>
