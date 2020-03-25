@@ -216,6 +216,67 @@ router.post('/forgot',(req,res,next)=>{
 });
 
 
+router.get('/reset/:token',(req,res)=>{
+    userData.findOne({resetPasswordToken:req.param.token,resetPasswordExpires:{$gt:Date.now()}},(err,user)=>{
+        if(err){
+         return   console.log(err)
+        }
+        if(!user){
+            console.log('password reset token is invalid or has expired')
+          return  res.redirect('/forgot')
+        }
+        res.render('reset',{token:req.param.token})
+
+    })
+});
+
+router.post('/reset/:token',(req,res)=>{
+    async.waterfall([
+        (done)=>{
+            userData.findOne({resetPasswordToken:req.param.token,resetPasswordExpires:{$gt:Date.now()}},(err,user)=>{
+                if(err){
+                 return   console.log(err)
+                }
+                if(!user){
+                    console.log('password reset token is invalid or has expired')
+                  return  res.redirect('/forgot')
+                }
+                user.setPassword(req.body.password,(err)=>{
+                    user.resetPasswordToken = undefined;
+                    user.resetPasswordExpires = undefined;
+                    user.save()
+                })
+            })    
+        }, (token,user,done)=>{
+            const smtpTransport = nodemailer.createTransport({
+                service:'Gmail',
+                host:'smtp.gmail.com',  
+                secure:false,
+                auth:{
+                    user:'chidistestapp@gmail.com',
+                    pass:'mrwawbvuhpapdlgi'
+                }
+            })
+            const mailOption = {
+                from:'chidistestapp@gmail.com',
+                to:user.email,
+                subject:`Password Reset`,
+                text:'Your password has been reset succeffully' 
+                };
+            smtpTransport.sendMail(mailOption,(err)=>{
+                if(err){
+                    throw err
+                }
+                console.log('mail sent');
+                req.flash('success-msg', `your password has been changed`);
+                done(err,'done')
+            })    
+       },(err)=>{
+           return res.redirect('/login')
+       }
+    ])
+})
+
 router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/users/login')
