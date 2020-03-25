@@ -210,7 +210,7 @@ router.post('/forgot',(req, res, next)=>{
                 text:'You (or someone else) have requested to chenge your app password' + '\n\n' +
                      'if it is you, click on the link below or copy to your browser the link expires in one hour'
                      + '\n\n' +
-                     'http://'+ req.headers.host +'/users/reset/'+ token 
+                     'https://'+ req.headers.host +'/users/reset/'+ token  + '\n\n' +'this link will be invalid after one hour'
                 };
             smtpTransport.sendMail(mailOption,(err)=>{
                 if(err){
@@ -236,7 +236,6 @@ router.get('/reset/:token',(req,res)=>{
         }
         if(!user){
             req.flash('error_msg','passord reset token is invalid or has expired')
-            console.log('password reset token is invalid or has expired')
           return  res.redirect('/users/forgot')
         }
         
@@ -251,21 +250,14 @@ router.post('/reset/:token',(req,res)=>{
         (done)=>{
             console.log({resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}})
             userData.findOne({resetPasswordToken:req.params.token,resetPasswordExpires:{$gt:Date.now()}},async (err,user)=>{
-                console.log('in the db')
                 if(err){
-                    console.log('in the error zone')
                  return console.log(err)
                 }
-                console.log('after the error zone')
                 if(!user){
-                    console.log('in the not user zone')
                     req.flash('error','password reset token is invalid or has expired')
-                    console.log('password reset token is invalid or has expired')
                   return  res.redirect('/users/forgot')
                 }
-                    console.log('after the not user zone')
                 try {
-                    console.log('in the user zone')
                     let password = await bcrypt.hash(req.body.createPassword, 10);
                     user.password = password;
                     user.resetPasswordToken = undefined;
