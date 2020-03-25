@@ -7,6 +7,7 @@ const userData = require('./schema');
 const bcrypt = require('bcrypt');
 const nodemailer =require('nodemailer');
 const async = require('async');
+const crypto = require('crypto')
 
 
 mongoose.connect('mongodb+srv://Chidiebere:1amChidi@cluster0-6dkm7.mongodb.net/testio?retryWrites=true&w=majority',{useNewUrlParser:true}, (err,db)=>{
