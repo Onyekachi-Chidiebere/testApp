@@ -207,7 +207,7 @@ router.post('/forgot',(req, res, next)=>{
                 from:'chidistestapp@gmail.com',
                 to:user.email,
                 subject:`chidistestapp Password Reset`,
-                text:'You (or someone else) have requested to chenge your app password' + '\n\n' +
+                text:'You (or someone else) have requested to change your app password' + '\n\n' +
                      'if it is you, click on the link below or copy to your browser the link expires in one hour'
                      + '\n\n' +
                      'https://'+ req.headers.host +'/users/reset/'+ token  + '\n\n' +'this link will be invalid after one hour'
